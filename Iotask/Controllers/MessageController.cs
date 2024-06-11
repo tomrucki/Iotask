@@ -22,15 +22,17 @@ public class MessageController : ControllerBase
     }
 
     [HttpGet("/getMessages")]
-    public IEnumerable<RequestMessage> GetMessages(
+    public Task<IEnumerable<RequestMessage>> GetMessages(
         int? page, int? pageSize, 
         string search)
     {
         return _requestMessageService.Get(page, pageSize, search);
     }
 
+    [ProducesResponseType<string>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("/saveMessage")]
-    public ActionResult SaveMessage([FromBody]AddMessage message, [FromServices]IValidator<AddMessage> validator)
+    public async Task<IActionResult> SaveMessage([FromBody]AddMessage message, [FromServices]IValidator<AddMessage> validator)
     {
         var validation = validator.Validate(message);
         if (validation.IsValid == false)
@@ -38,7 +40,7 @@ public class MessageController : ControllerBase
             return BadRequest(validation.Errors);
         }
 
-        var result = _requestMessageService.AddMessage(message.Request);
+        var result = await _requestMessageService.AddMessage(message.Request);
         _logger.LogTrace("{Message}", message);
         return Ok(result);
     }

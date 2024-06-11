@@ -1,34 +1,43 @@
+using Iotask.Data;
 using Iotask.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Iotask.Services;
 
 public class RequestMessageService
 {
-    static List<RequestMessage> _data = new();
-    private TimeProvider _timeProvider;
+    private readonly RequestMessageContext _requestMessageContext;
+    private readonly TimeProvider _timeProvider;
     private const int DefaultPageSize = 10;
 
-    public RequestMessageService(TimeProvider timeProvider)
+    public RequestMessageService(
+        RequestMessageContext requestMessageContext,
+        TimeProvider timeProvider)
     {
+        _requestMessageContext = requestMessageContext;
         _timeProvider = timeProvider;
     }
 
-    public string AddMessage(string message)
+    public async Task<string> AddMessage(string message)
     {
-        _data.Add(new RequestMessage
+        var newMessage = new RequestMessage
         {
             Request = message,
             RequestTime = _timeProvider.GetUtcNow(),
-        });
+        };
+
+        _requestMessageContext.Add(newMessage);
+        await _requestMessageContext.SaveChangesAsync();
 
         return "You send: " + message;
     }
 
-    public IEnumerable<RequestMessage> Get(
+    public async Task<IEnumerable<RequestMessage>> Get(
         int? page = 0, int? pageSize = 0, 
         string search = "")
     {
-        var query = _data
+        var query = _requestMessageContext.RequestMessage
+            .AsNoTracking()
             .AsQueryable();
 
         if (string.IsNullOrWhiteSpace(search) == false)
@@ -44,6 +53,7 @@ public class RequestMessageService
                 .Take(pageSize.Value);
         }
 
-        return query.ToList();
+        var result = await query.ToListAsync();
+        return result;
     }
 }

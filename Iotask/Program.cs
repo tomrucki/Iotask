@@ -1,5 +1,6 @@
 
 using FluentValidation;
+using Iotask.Data;
 using Iotask.Dto;
 using Iotask.Services;
 
@@ -15,6 +16,8 @@ public class Program
         builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
         builder.Services.AddScoped<RequestMessageService>();
         builder.Services.AddScoped<IValidator<AddMessage>, AddMessageValidator>();
+
+        builder.Services.AddSqlite<RequestMessageContext>("Data Source=RequestMessage.db");
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,6 +42,8 @@ public class Program
 
 
         app.MapControllers();
+
+        app.CreateDbIfNotExists();
 
         app.Run();
     }
