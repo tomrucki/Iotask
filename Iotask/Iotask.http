@@ -1,0 +1,6 @@
+@Iotask_HostAddress = http://localhost:5079
+
+GET {{Iotask_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iotask", "Iotask\Iotask.csproj", "{56D081B9-E8A4-4442-8A62-F79902E880F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C319D5C3-82AB-44F8-8894-EE154AA11C37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iotask.Tests", "tests\Iotask.Tests\Iotask.Tests.csproj", "{1FC65574-B336-435E-B5C1-E0BE96139DC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56D081B9-E8A4-4442-8A62-F79902E880F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D081B9-E8A4-4442-8A62-F79902E880F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D081B9-E8A4-4442-8A62-F79902E880F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D081B9-E8A4-4442-8A62-F79902E880F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC65574-B336-435E-B5C1-E0BE96139DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC65574-B336-435E-B5C1-E0BE96139DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC65574-B336-435E-B5C1-E0BE96139DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC65574-B336-435E-B5C1-E0BE96139DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1FC65574-B336-435E-B5C1-E0BE96139DC7} = {C319D5C3-82AB-44F8-8894-EE154AA11C37}
+	EndGlobalSection
+EndGlobal
