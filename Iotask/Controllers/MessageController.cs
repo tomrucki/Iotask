@@ -22,9 +22,11 @@ public class MessageController : ControllerBase
     }
 
     [HttpGet("/getMessages")]
-    public IEnumerable<RequestMessage> GetMessages()
+    public IEnumerable<RequestMessage> GetMessages(
+        int? page, int? pageSize, 
+        string search)
     {
-        return _requestMessageService.Get();
+        return _requestMessageService.Get(page, pageSize, search);
     }
 
     [HttpPost("/saveMessage")]
