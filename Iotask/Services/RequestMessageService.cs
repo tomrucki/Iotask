@@ -47,10 +47,15 @@ public class RequestMessageService
 
         if (page >= 0)
         {
-            pageSize ??= DefaultPageSize;
+            var adjustedPageSize = pageSize ?? 1;
+            if (adjustedPageSize < 1)
+            {
+                adjustedPageSize = DefaultPageSize;
+            }
+
             query = query
-                .Skip(page.Value * pageSize.Value)
-                .Take(pageSize.Value);
+                .Skip(page.Value * adjustedPageSize)
+                .Take(adjustedPageSize);
         }
 
         var result = await query.ToListAsync();
