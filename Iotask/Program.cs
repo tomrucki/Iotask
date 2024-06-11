@@ -1,4 +1,8 @@
 
+using FluentValidation;
+using Iotask.Dto;
+using Iotask.Services;
+
 namespace Iotask;
 
 public class Program
@@ -8,6 +12,9 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
+        builder.Services.AddScoped<RequestMessageService>();
+        builder.Services.AddScoped<IValidator<AddMessage>, AddMessageValidator>();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,7 +30,10 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+        if (app.Environment.IsDevelopment() == false)
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseAuthorization();
 
