@@ -2,6 +2,7 @@
 using FluentValidation;
 using Iotask.Data;
 using Iotask.Dto;
+using Iotask.Infrastructure.Authentication;
 using Iotask.Services;
 
 namespace Iotask;
@@ -20,9 +21,11 @@ public class Program
         builder.Services.AddSqlite<RequestMessageContext>("Data Source=RequestMessage.db");
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.AddKeycloakAuthorization();
 
         var app = builder.Build();
 
@@ -38,8 +41,8 @@ public class Program
             app.UseHttpsRedirection();
         }
 
+        app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 

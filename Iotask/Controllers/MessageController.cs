@@ -2,12 +2,14 @@ using FluentValidation;
 using Iotask.Dto;
 using Iotask.Models;
 using Iotask.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Iotask.Controllers;
 
 [ApiController]
 [Route("")]
+[Authorize]
 public class MessageController : ControllerBase
 {
     private readonly ILogger<MessageController> _logger;
